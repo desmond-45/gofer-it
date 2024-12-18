@@ -1,0 +1,27 @@
+# Generate a local dictionary of misspelled words.
+
+! gospel -show=false -misspellings=.words -update-dict=false
+! stderr .
+cmp stdout expected_output
+
+# Check it matches our expectation.
+cmp .words expected_words
+
+# Since we wrote to the .words well known location we now should have no misspellings.
+gospel -show=false
+! stdout .
+! stderr .
+
+-- go.mod --
+module dummy
+-- main.go --
+package main
+
+// Speeling error.
+func main() {
+}
+-- expected_words --
+1
+Speeling
+-- expected_output --
+main.go:3:4: "Speeling" is misspelled in comment

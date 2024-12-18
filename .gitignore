@@ -1,0 +1,28 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+
+# Dependency directories
+vendor/
+
+# Logs
+*.log
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS folder attributes
+Icon?
+._*
+
+# macOS Thumbnails
+Thumbs.db
+
+# IDE-specific files
+.idea/
+.vscode/

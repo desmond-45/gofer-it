@@ -1,0 +1,24 @@
+# Check case matters in camel-cased words.
+
+! gospel -show=false -misspellings=words
+! stderr .
+cmp stdout expected_output
+
+# Check the complete list matches our expectation.
+cmp words expected_words
+
+-- go.mod --
+module dummy
+-- main.go --
+package interp
+
+import "time"
+
+// KillTimeout is a duration to wait before sending the Kill signal on Timeout.
+func DefaultExecHandler(killTimeout time.Duration) {
+}
+-- expected_words --
+1
+KillTimeout
+-- expected_output --
+main.go:5:4: "KillTimeout" is misspelled (case mismatch) in comment

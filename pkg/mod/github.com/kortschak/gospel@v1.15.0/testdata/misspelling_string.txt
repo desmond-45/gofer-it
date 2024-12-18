@@ -1,0 +1,25 @@
+# Show misspelling in a comment and correct colourisation only when asked.
+
+gospel
+! stdout .
+! stderr .
+
+gospel -check-strings=false
+! stdout .
+! stderr .
+
+! gospel -check-strings
+! stderr .
+cmp stdout expected_output
+
+-- go.mod --
+module dummy
+-- main.go --
+package main
+
+func main() {
+	println("Speeling error.")
+}
+-- expected_output --
+main.go:4:11: "Speeling" is misspelled in string
+	"[31;1;3mSpeeling[0m error."

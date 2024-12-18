@@ -1,0 +1,16 @@
+# Show authors mentioned in NOTE comments are added as words.
+
+gospel
+! stdout .
+! stderr .
+
+-- go.mod --
+module dummy
+-- main.go --
+// Copyright leetcoder, una-otra and autora.
+package main
+
+// TODO(leetcoder): Flesh out this function.
+func main() {
+	// TODO(@una-otra, @autora): Make this work.
+}

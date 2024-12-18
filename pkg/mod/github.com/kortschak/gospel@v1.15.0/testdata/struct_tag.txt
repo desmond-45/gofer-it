@@ -1,0 +1,34 @@
+# Words are ignored when included in valid struct tags.
+
+! gospel -show=false
+! stderr .
+cmp stdout expected_output
+
+-- go.mod --
+module dummy
+-- main.go --
+package main
+
+// goodtag
+// maskedmistake
+// badtag
+// unmaskedmistake
+// unexported
+// failedmistake
+// emb
+// edded
+type T struct {
+	F1 int `goodtag:"maskedmistake"`
+	F2 int `badtag: "unmaskedmistake"`
+	f3 int `unexported:"failedmistake"`
+	E  `emb:"edded"`
+}
+
+type E int
+
+func main() {
+}
+-- expected_output --
+main.go:5:4: "badtag" is misspelled in comment
+main.go:6:4: "unmaskedmistake" is misspelled in comment
+main.go:8:4: "failedmistake" is misspelled in comment

@@ -1,0 +1,19 @@
+# Show URLs can be ignored.
+
+! gospel -show=false -mask-urls=false
+! stderr .
+cmp stdout expected_output_unmasked
+
+gospel -show=false -mask-urls=true
+! stdout .
+! stderr .
+
+-- go.mod --
+module dummy
+-- dummy.go --
+package dummy
+
+// The format of the dumped file is described at
+// https://golang.org/s/go15heapdump.
+-- expected_output_unmasked --
+dummy.go:4:25: "go15heapdump" is misspelled in comment

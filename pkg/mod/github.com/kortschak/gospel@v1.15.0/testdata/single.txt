@@ -1,0 +1,21 @@
+# Show single-letter misspelling is ignored when requested.
+
+! gospel -ignore-single=false
+! stderr .
+cmp stdout expected_output
+
+gospel -ignore-single=true
+! stdout .
+! stderr .
+
+-- go.mod --
+module dummy
+-- main.go --
+package main
+
+// ϵ
+func main() {
+}
+-- expected_output --
+main.go:3:4: "ϵ" is misspelled in comment
+	// [31;1;3mϵ[0m
